@@ -1,37 +1,66 @@
 # RecoLabs
 
-Multi-app workspace containing a shared backend, ecommerce app, and main website.
+Multi-app workspace: a small Express/Mongo newsletter API, a Next.js ecommerce storefront, and a Vite landing/main website.
 
 ## Overview
 
-RecoLabs groups related products in one repository so shared backend services and frontends can evolve together.
+RecoLabs groups related product surfaces in one repo. Each folder installs and runs independently (no root workspace package manager).
 
 ## Apps
 
-| Folder | Role |
-|--------|------|
-| `Backend/` | Node/Express API (MongoDB/Mongoose) |
-| `Ecommerce/` | Ecommerce frontend |
-| `MainWebsite/` | Primary marketing / main site |
+| Folder | Role | Stack highlights |
+|--------|------|------------------|
+| `Backend/` | Newsletter subscription API | Express 5, Mongoose, TypeScript entry (`index.ts`) |
+| `Ecommerce/` | Storefront | Next.js 14, Tailwind, Redux Toolkit, Radix UI |
+| `MainWebsite/` | Marketing / landing | React, Vite, Tailwind, Framer Motion |
 
-## Stack
+## Features
 
-- Node.js, Express
-- MongoDB (Mongoose)
-- JavaScript/TypeScript frontends (per app)
+- **Backend:** `POST /api/newsletter` — subscribe emails (duplicate check), CORS open for clients
+- **Ecommerce:** product browsing UI patterns (carousel, accordion, drawers), cart-oriented Redux state
+- **MainWebsite:** landing sections (hero, courses/categories-style blocks, CTA), toast feedback, coming-soon route
 
-## Getting started
+## Structure
 
-Each app is independent. From the app you want to run:
-
-```bash
-cd Backend   # or Ecommerce / MainWebsite
-npm install
-npm start    # or npm run dev if available
+```
+Backend/
+  index.ts
+  Models/Newsletter.ts
+  vercel.json
+Ecommerce/
+  src/app/          # Next.js App Router
+  src/components/
+MainWebsite/
+  src/              # Vite React landing + pages
 ```
 
-Configure environment variables per app (database URI, ports, etc.) before starting.
+## Setup
+
+### Backend
+
+```bash
+cd Backend
+npm install
+# .env: MONGOURI, PORT
+npm start
+```
+
+### Ecommerce
+
+```bash
+cd Ecommerce
+npm install
+npm run dev
+```
+
+### Main website
+
+```bash
+cd MainWebsite
+npm install
+npm run dev
+```
 
 ## Notes
 
-Treat this as a monorepo-style workspace without a shared package manager root — install and run each folder separately.
+Treat this as a loose monorepo: configure env vars per app and deploy each target separately (Backend includes `vercel.json`).
